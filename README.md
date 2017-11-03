@@ -2,6 +2,6 @@
 
 Is a theatre repertoire informational system of Krasnodar.
 
-Frontend: VueJs
+Frontend: VueJs, SemanticUI
 Backend: Loopback
 
