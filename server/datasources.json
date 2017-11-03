@@ -1,0 +1,17 @@
+{
+  "db": {
+    "name": "db",
+    "connector": "memory",
+    "file": "repertoire.json"
+  },
+  "bigStepforward": {
+    "host": "localhost",
+    "port": 27017,
+    "url": "",
+    "database": "bigStepforward",
+    "password": "",
+    "name": "bigStepforward",
+    "user": "",
+    "connector": "mongodb"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "Theatre",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "repertoires": {
+      "type": "hasMany",
+      "model": "Repertoire",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

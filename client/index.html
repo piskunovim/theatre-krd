@@ -1,0 +1,269 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Standard Meta -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <!-- Site Properties -->
+  <title>Театр Краснодар - Репертуар театров Краснодара</title>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
+
+  <script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+  <script src="https://unpkg.com/vue"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.14/moment-timezone-with-data.min.js"></script>
+</head>
+<body>
+
+<h1 class="ui center aligned header">Театры Краснодара</h1>
+
+<h2 class="ui center aligned header">Репертуар на Ноябрь 2017</h2>
+
+
+
+<div id="app">
+
+<div class="ui borderless main menu">
+    <div class="ui text container">
+      <div class="overlay">
+        <div class="ui secondary menu">
+          <a class="item" v-for="value in json" v-bind:href="'#'+value.url">{{ value.name }}</a>
+        </div>
+      </div>
+      <div class="ui clearing divider"></div>
+    </div>
+</div>
+
+<div class="theatre repertoire" v-for="(value, key) in json">
+
+  <a class="theatre-head" v-bind:id="value.url"></a>
+
+  <h3 class="ui center aligned header">{{ value.name }} </h3>
+
+  <div class="ui container">
+  <div class="ui relaxed divided items">
+    <div class="item" v-for="rep in value.repertoire">
+      <div class="ui small image">
+      </div>
+      <div class="content">
+
+        <a class="header teal" >{{ rep.name }}</a>
+
+
+        <div class="ui special popup">
+          <div class="header">Описание «{{ rep.name }}»</div>
+          <div class="description">{{ rep.description }}</div>
+        </div>
+
+        <div class="meta">
+          <a>{{ rep.date }}</a>
+          <a>{{ rep.genre }}</a>
+        </div>
+        <!--
+        <div class="description">
+          {{ rep.description }}
+        </div>
+      -->
+        <!--<div class="extra">
+          <img src="assets/images/wireframe/square-image.png" class="ui circular avatar image"> Картинка
+        </div>-->
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+</div>
+
+
+<div class="ui center aligned header">
+  <h4 class="ui horizontal divider header">
+  <i class="money icon"></i>
+  Поддержите нас
+ </h4>
+  <div class="donation" style="margin-top: 2em">
+  <iframe src="https://money.yandex.ru/quickpay/shop-widget?writer=seller&targets=%D0%9F%D0%BE%D0%B6%D0%B5%D1%80%D1%82%D0%B2%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%BD%D0%B0%20%D1%80%D0%B0%D0%B7%D0%B2%D0%B8%D1%82%D0%B8%D0%B5%20%D1%80%D0%B5%D1%81%D1%83%D1%80%D1%81%D0%B0&targets-hint=&default-sum=&button-text=11&payment-type-choice=on&hint=&successURL=http%3A%2F%2Fxn----7sbbatc1bzajpcfigc.xn--p1ai%2F&quickpay=shop&account=410012457339096" width="450" height="213" frameborder="0" allowtransparency="true" scrolling="no"></iframe>
+  </div>
+<!--<a href="#"><img src="yandex_kassa.png" class="ui centered small image" title="Яндекс Касса"></a>-->
+</div>
+
+
+<!-- Content JS HERE !-->
+<style>
+  .last.container {
+    margin-bottom: 300px !important;
+  }
+  h1.ui.center.header {
+    margin-top: 3em;
+  }
+  h2.ui.center.header {
+    margin: 4em 0em 2em;
+  }
+  h3.ui.center.header {
+    margin-top: 2em;
+    padding: 2em 0em;
+  }
+  h1.ui.header {
+    font-size: 3rem;
+  }
+  .ui.bottom.popup{
+    margin-top: 2.7em;
+  }
+  .overlay {
+    background-color: #FFFFFF;
+    padding: 0em;
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+    transition: all 0.5s ease;
+  }
+  /* change style */
+  .fixed.overlay {
+    position: fixed;
+    padding: 1em;
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.2);
+  }
+  a.theatre-head {
+    display: block;
+    position: relative;
+    top: -80px;
+    visibility: hidden;
+  }
+</style>
+
+<script type="text/javascript">
+
+
+   
+
+
+$(document).ready(function() {
+
+  var
+    $headers     = $('body > h3'),
+    $header      = $headers.first(),
+    ignoreScroll = false,
+    timer
+  ;
+
+  var theatresList = {
+      1: {name: "Музыкальный театр «Премьера»",id:1, repertoire:[], url: "muz"},
+      2: {name: "Театр Драмы им. Горького",id:2, repertoire:[], url: "drama"},
+      3: {name:"Филармония им. Пономаренко",id:3, repertoire:[], url: "ponomarenko"},
+      4: {name:"ЦКЗ Красная 5",id:4, repertoire:[], url: "krasnaya5"},
+      5: {name:"ДК ЖД",id:5, repertoire:[], url: "dkjd"},
+      6: {name:"Молодежный театр",id:6, repertoire:[], url: "molodej"},
+      7: {name:"Один театр",id:7, repertoire:[], url: "odin"}
+  };
+
+  // Preserve example in viewport when resizing browser
+  $(window)
+    .on('resize', function() {
+      // ignore callbacks from scroll change
+      clearTimeout(timer);
+      $headers.visibility('disable callbacks');
+
+      // preserve position
+      $(document).scrollTop( $header.offset().top );
+
+      // allow callbacks in 500ms
+      timer = setTimeout(function() {
+        $headers.visibility('enable callbacks');
+      }, 500);
+    })
+  ;
+  $headers
+    .visibility({
+      // fire once each time passed
+      once: false,
+
+      // don't refresh position on resize
+      checkOnRefresh: true,
+
+      // lock to this element on resize
+      onTopPassed: function() {
+        $header = $(this);
+      },
+      onTopPassedReverse: function() {
+        $header = $(this);
+      }
+    })
+  ;
+
+
+
+  
+
+  function compareRepertoireByDate(a,b) {
+    if (a.date < b.date)
+      return -1;
+    if (a.date > b.date)
+      return 1;
+    return 0;
+  }
+
+  new Vue({
+    el: '#app',
+    data: {
+        json: null
+    },
+    created: function () {
+        var _this = this;
+        $.getJSON('http://localhost:3000/api/Repertoires', function (json) {
+
+            json.sort(compareRepertoireByDate);
+
+            for(id in json){
+
+              console.log(json[id]);
+              theatresList[json[id].theatreId].repertoire.push({
+                name: json[id].name,
+                date: moment.tz(json[id].date, "Europe/Moscow").format('DD/MM/YYYY HH:mm'),
+                genre: json[id].genre,
+                description: json[id].description
+              });
+            }
+
+            for(id in theatresList){
+              console.log(theatresList[id].repertoire.length);
+              if(theatresList[id].repertoire.length < 1){
+                delete theatresList[id];
+              } else {
+                theatresList[id].repertoire
+              }
+            }
+
+
+            _this.json = theatresList;
+
+            
+
+        }).then(function(){
+
+           $('.overlay')
+            .visibility({
+              type   : 'fixed',
+              offset : 15 // give some space from top of screen
+            });
+
+          $('.teal').popup({
+                inline:true,
+                position: "bottom left",
+                variation: "very wide"
+              });
+          
+        });
+    }
+  });
+
+
+});
+</script>
+
+</body>
+</html>
